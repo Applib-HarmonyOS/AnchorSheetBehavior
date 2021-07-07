@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StackLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:id="$+id:main_layout"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    >
+    <Button
+        ohos:id="$+id:tap_me"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:text_size="50vp"
+        ohos:text="$string:tap_me"
+        />
+    <com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout
+        xmlns:ohos="http://schemas.huawei.com/res/ohos"
+        ohos:id="$+id:anchorsheet_layout"
+        ohos:height="match_parent"
+        ohos:width="match_parent"
+        >
+        <DirectionalLayout
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:orientation="vertical"
+            ohos:background_element="$ohos:color:id_color_alert_dark"
+            >
+            <Text
+                ohos:id="$+id:content"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="50vp"
+                ohos:text="$string:welcome"
+                />
+
+            <Image
+                ohos:id="$+id:displaypic"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:image_src="$media:pic"
+                ohos:bottom_margin="60vp"
+                ohos:top_margin="100vp"
+                ohos:layout_alignment="horizontal_center"
+                />
+
+            <Text
+                ohos:id="$+id:name"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="30vp"
+                ohos:text="$string:name"
+                />
+
+            <ListContainer
+                ohos:id="$+id:list_container"
+                ohos:height="250vp"
+                ohos:width="match_parent"
+                ohos:top_margin="10vp"
+                ohos:background_element="$ohos:color:id_color_palette_aux4_dark"
+                ohos:layout_alignment="horizontal_center"/>
+        </DirectionalLayout>
+    </com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout>
+
+</StackLayout>

@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "AnchorSheetLayoutExample"
+    },
+    {
+      "name": "mainability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "mainability_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name":"tap_me",
+      "value": "Tap me!!"
+    },
+    {
+      "name": "welcome",
+      "value": "Hi Welcome"
+    },
+    {
+      "name": "name",
+      "value": "Person Name"
+    },
+    {
+      "name": "item",
+      "value": "Item0"
+    }
+  ]
+}
