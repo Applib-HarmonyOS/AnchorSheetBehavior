@@ -1,0 +1,29 @@
+{
+  "app": {
+    "bundleName": "com.hardsoftstudio.anchorsheetlayout",
+    "vendor": "hardsoftstudio",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    "apiVersion": {
+      "compatible": 5,
+      "target": 5,
+      "releaseType": "Release"
+    }
+  },
+  "deviceConfig": {
+  },
+  "module": {
+    "package": "com.hardsoftstudio.anchorsheetlayout",
+    "deviceType": [
+      "phone",
+      "tablet"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "anchorsheetlayout",
+      "moduleType": "har"
+    }
+  }
+}
