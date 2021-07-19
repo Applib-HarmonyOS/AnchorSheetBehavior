@@ -68,9 +68,9 @@ public class SheetOhosTest {
 
     @Test
     public void testHideable(){
-        assertTrue(anchorSheetLayout.isHideable());
-        anchorSheetLayout.setHideable(false);
-        assertFalse(anchorSheetLayout.isHideable());
+        assertTrue(anchorSheetLayout.isCanHide());
+        anchorSheetLayout.setCanHide(false);
+        assertFalse(anchorSheetLayout.isCanHide());
     }
 
     @Test
@@ -115,12 +115,14 @@ public class SheetOhosTest {
 
     @Test
     public void testDragHelperMaxVelocity(){
-        assertEquals(DragHelper.DEFAULT_MAX_VELOCITY,dragHelper.getMaxVelocity(),0.01f);
+        double delta = 0.0001f;
+        assertEquals(DragHelper.DEFAULT_MAX_VELOCITY,dragHelper.getMaxVelocity(), delta);
     }
 
     @Test
     public void testDragHelperMinVelocity(){
-        assertEquals(DragHelper.DEFAULT_MIN_VELOCITY,dragHelper.getMinVelocity(),0.01f);
+        double difference = 0.00001f;
+        assertEquals(DragHelper.DEFAULT_MIN_VELOCITY,dragHelper.getMinVelocity(), difference);
     }
 
     @Test
