@@ -59,11 +59,12 @@ checkstyle {
 }
 
 sonarqube {
-  properties {
-    property "sonar.projectKey", "applibgroup_AnchorSheetBehavior"
-    property "sonar.organization", "applibgroup"
-    property "sonar.host.url", "https://sonarcloud.io"
-    property "sonar.sources", "entry,anchorsheetlayout"
-    property "sonar.java.binaries", "entry/build,anchorsheetlayout/build"
-  }
+    properties {
+        property "sonar.projectKey", "applibgroup_AnchorSheetBehavior"
+        property "sonar.organization", "applibgroup"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.sources", "entry,anchorsheetlayout"
+        property "sonar.java.binaries", "entry/build,anchorsheetlayout/build"
+        property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/checkstyle.xml"
+    }
 }
