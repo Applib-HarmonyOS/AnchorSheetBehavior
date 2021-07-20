@@ -28,7 +28,7 @@ public class MainAbilitySlice extends AbilitySlice {
         initListContainer();
         anchorSheetLayout = (AnchorSheetLayout) findComponentById(ResourceTable.Id_anchorsheet_layout);
         anchorSheetLayout.setState(AnchorSheetLayout.STATE_COLLAPSED);
-        anchorSheetLayout.setHideable(true);
+        anchorSheetLayout.setCanHide(true);
         Text content = (Text) findComponentById(ResourceTable.Id_content);
         Button button = (Button) findComponentById(ResourceTable.Id_tap_me);
         button.setClickedListener(component -> {

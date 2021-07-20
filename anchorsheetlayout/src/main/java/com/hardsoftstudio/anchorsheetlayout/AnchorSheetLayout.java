@@ -113,13 +113,13 @@ public class AnchorSheetLayout extends ComponentContainer {
     private static final int DEFAULT_PEEK_HEIGHT = 217;
     private static final int DEFAULT_MIN_OFFSET = 0;
     private static final boolean CAN_HIDE = true;
-    private static final boolean SKIP_COLLAPSE = false;
+    private static final boolean SKIP_COLLAPSED = false;
 
     // Decides the height of the Sheet in Anchor State
-    private float mAnchorThreshold = ANCHOR_THRESHOLD;
+    private float anchorThreshold = ANCHOR_THRESHOLD;
 
     // Distance between Layout Top and Child Top in Hidden State
-    private int mMinOffset;
+    private int minOffset;
 
     // Distance between Layout Top and Child Top in Expanded State
     private int mMaxOffset;
@@ -128,10 +128,10 @@ public class AnchorSheetLayout extends ComponentContainer {
     private int mAnchorOffset;
 
     // Says whether Anchor Sheet can go to Hidden State
-    private boolean mHideable;
+    private boolean canHide;
 
     // Whether to avoid Collapse State when Sheet is moving down
-    private boolean mSkipCollapsed;
+    private boolean skipCollapsed;
 
     @State
     private int mState = STATE_COLLAPSED;
@@ -162,6 +162,11 @@ public class AnchorSheetLayout extends ComponentContainer {
 
     // XML attribute
     private static final String ATTR_PEEK_HEIGHT = "peekHeight";
+    private static final String ATTR_MIN_OFFSET = "minOffset";
+    private static final String ATTR_CAN_HIDE = "canHide";
+    private static final String ATTR_SKIP_COLLAPSED = "skipCollapsed";
+    private static final String ATTR_ANCHOR_THRESHOLD = "anchorThreshold";
+
     // Height of the Sheet when in Collapsed State
     private int peekHeight;
 
@@ -176,16 +181,25 @@ public class AnchorSheetLayout extends ComponentContainer {
         if (attrs != null) {
             Optional<Attr> value = attrs.getAttr(ATTR_PEEK_HEIGHT);
             this.peekHeight = value.map(Attr::getIntegerValue).orElse(DEFAULT_PEEK_HEIGHT);
+
+            value = attrs.getAttr(ATTR_MIN_OFFSET);
+            this.minOffset = value.map(Attr::getIntegerValue).orElse(DEFAULT_MIN_OFFSET);
+
+            value = attrs.getAttr(ATTR_CAN_HIDE);
+            this.canHide = value.map(Attr::getBoolValue).orElse(CAN_HIDE);
+
+            value = attrs.getAttr(ATTR_ANCHOR_THRESHOLD);
+            this.anchorThreshold = value.map(Attr::getFloatValue).orElse(ANCHOR_THRESHOLD);
+
+            value = attrs.getAttr(ATTR_SKIP_COLLAPSED);
+            this.skipCollapsed = value.map(Attr::getBoolValue).orElse(SKIP_COLLAPSED);
         }
-        setMinOffset(DEFAULT_MIN_OFFSET);
-        setHideable(CAN_HIDE);
-        setSkipCollapsed(SKIP_COLLAPSE);
         this.setBindStateChangedListener(new BindStateChangedListener() {
             @Override
             public void onComponentBoundToWindow(Component component) {
                 mDragHelper = DragHelper.create((ComponentContainer) component, mDragCallback);
                 mParentHeight = component.getHeight();
-                setAnchorOffset(mAnchorThreshold);
+                setAnchorOffset(anchorThreshold);
                 setPeekHeight(peekHeight);
             }
 
@@ -222,7 +236,7 @@ public class AnchorSheetLayout extends ComponentContainer {
                             / (mParentHeight - mMaxOffset));
                 } else {
                     mCallback.onSlide(bottomSheet,
-                            (float) (mMaxOffset - top) / (mMaxOffset - mMinOffset));
+                            (float) (mMaxOffset - top) / (mMaxOffset - minOffset));
                 }
             }
         }
@@ -242,7 +256,7 @@ public class AnchorSheetLayout extends ComponentContainer {
             @State int targetState;
 
             if (yvel == 0.f) { // velocity is zero
-                if (Math.abs(currentTop - mMinOffset) < Math.abs(currentTop - mAnchorOffset)) {
+                if (Math.abs(currentTop - minOffset) < Math.abs(currentTop - mAnchorOffset)) {
                     targetState = STATE_EXPANDED;
                 } else if (Math.abs(currentTop - mAnchorOffset) < Math.abs(currentTop - mMaxOffset)) {
                     targetState = STATE_ANCHOR;
@@ -256,7 +270,7 @@ public class AnchorSheetLayout extends ComponentContainer {
                     targetState = STATE_ANCHOR;
                 }
             } else if (dy > 0) { // moving down
-                if ((isHideable() && shouldHide(releasedChild, yvel)) || getSkipCollapsed()) {
+                if ((isCanHide() && shouldHide(releasedChild, yvel)) || getSkipCollapsed()) {
                     targetState = STATE_HIDDEN;
                 } else {
                     targetState = STATE_COLLAPSED;
@@ -264,7 +278,7 @@ public class AnchorSheetLayout extends ComponentContainer {
             } else { // just a click
                 if (currentTop == mAnchorOffset) {
                     targetState = STATE_ANCHOR;
-                } else if (currentTop == mMinOffset) {
+                } else if (currentTop == minOffset) {
                     targetState = STATE_EXPANDED;
                 } else if (currentTop == mMaxOffset) {
                     targetState = STATE_COLLAPSED;
@@ -280,7 +294,7 @@ public class AnchorSheetLayout extends ComponentContainer {
         // returns the vertical position of the captured view when it's been dragged
         @Override
         public int clampViewPositionVertical(Component child, int top, int dy) {
-            return Math.min(mHideable ? mParentHeight : mMaxOffset, Math.max(mMinOffset, top));
+            return Math.min(canHide ? mParentHeight : mMaxOffset, Math.max(minOffset, top));
         }
 
         // returns the horizontal position of the captured view when it's been dragged
@@ -292,10 +306,10 @@ public class AnchorSheetLayout extends ComponentContainer {
         // possible vertical drag
         @Override
         public int getViewVerticalDragRange(Component child) {
-            if (mHideable) {
-                return mParentHeight - mMinOffset;
+            if (canHide) {
+                return mParentHeight - minOffset;
             } else {
-                return mMaxOffset - mMinOffset;
+                return mMaxOffset - minOffset;
             }
         }
     };
@@ -323,7 +337,7 @@ public class AnchorSheetLayout extends ComponentContainer {
                 // set the child position
                 switch (mState) {
                     case STATE_EXPANDED:
-                        child.setContentPositionY(mMinOffset);
+                        child.setContentPositionY(minOffset);
                         break;
                     case STATE_COLLAPSED:
                         child.setContentPositionY(mMaxOffset);
@@ -446,7 +460,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @return The possible minimum distance between parent top and child top
      */
     public int getMinOffset() {
-        return mMinOffset;
+        return minOffset;
     }
 
     /**
@@ -455,7 +469,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @param minOffset The possible minimum distance between parent top and child top
      */
     public void setMinOffset(int minOffset) {
-        this.mMinOffset = minOffset;
+        this.minOffset = minOffset;
     }
 
     /**
@@ -473,7 +487,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @return float between 0..1
      */
     public float getAnchorThreshold() {
-        return mAnchorThreshold;
+        return anchorThreshold;
     }
 
     /**
@@ -483,8 +497,8 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @param threshold {@link Float} from 0..1
      */
     public void setAnchorOffset(float threshold) {
-        this.mAnchorThreshold = threshold;
-        this.mAnchorOffset = (int) Math.max(mParentHeight * mAnchorThreshold, mMinOffset);
+        this.anchorThreshold = threshold;
+        this.mAnchorOffset = (int) Math.max(mParentHeight * anchorThreshold, minOffset);
     }
 
     /**
@@ -492,8 +506,8 @@ public class AnchorSheetLayout extends ComponentContainer {
      *
      * @param hideable {@code true} to make this bottom sheet hideable.
      */
-    public void setHideable(boolean hideable) {
-        mHideable = hideable;
+    public void setCanHide(boolean hideable) {
+        this.canHide = hideable;
     }
 
     /**
@@ -501,8 +515,8 @@ public class AnchorSheetLayout extends ComponentContainer {
      *
      * @return {@code true} if this bottom sheet can hide.
      */
-    public boolean isHideable() {
-        return mHideable;
+    public boolean isCanHide() {
+        return canHide;
     }
 
     /**
@@ -512,7 +526,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @param skipCollapsed True if the bottom sheet should skip the collapsed state.
      */
     public void setSkipCollapsed(boolean skipCollapsed) {
-        mSkipCollapsed = skipCollapsed;
+        this.skipCollapsed = skipCollapsed;
     }
 
     /**
@@ -522,7 +536,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @return Whether the bottom sheet should skip the collapsed state.
      */
     public boolean getSkipCollapsed() {
-        return mSkipCollapsed;
+        return skipCollapsed;
     }
 
     /**
@@ -569,7 +583,7 @@ public class AnchorSheetLayout extends ComponentContainer {
      * @return Whether to hide the sheet or not
      */
     boolean shouldHide(Component child, float yvel) {
-        if (mSkipCollapsed) {
+        if (skipCollapsed) {
             return true;
         }
         if (child.getContentPositionY() < mMaxOffset) {
@@ -577,7 +591,7 @@ public class AnchorSheetLayout extends ComponentContainer {
             return false;
         }
         final float newTop = child.getContentPositionY() + yvel * HIDE_FRICTION;
-        return Math.abs(newTop - mMaxOffset) / (float) peekHeight > HIDE_THRESHOLD;
+        return Math.abs(newTop - mMaxOffset) / peekHeight > HIDE_THRESHOLD;
     }
 
 
@@ -626,7 +640,7 @@ public class AnchorSheetLayout extends ComponentContainer {
         if (mViewRef == null) {
             // The view is not laid out yet; modify mState and let addComponent handle it later
             if (state == STATE_COLLAPSED || state == STATE_EXPANDED || state == STATE_ANCHOR
-                    || ((mHideable && state == STATE_HIDDEN) || state == STATE_FORCE_HIDDEN)) {
+                    || ((canHide && state == STATE_HIDDEN) || state == STATE_FORCE_HIDDEN)) {
                 mState = state;
             }
             return;
@@ -653,8 +667,8 @@ public class AnchorSheetLayout extends ComponentContainer {
         } else if (state == STATE_COLLAPSED) {
             top = mMaxOffset;
         } else if (state == STATE_EXPANDED) {
-            top = mMinOffset;
-        } else if ((mHideable && state == STATE_HIDDEN) || state == STATE_FORCE_HIDDEN) {
+            top = minOffset;
+        } else if ((canHide && state == STATE_HIDDEN) || state == STATE_FORCE_HIDDEN) {
             top = mParentHeight;
         } else {
             throw new IllegalArgumentException("Illegal state argument: " + state);
@@ -703,12 +717,12 @@ public class AnchorSheetLayout extends ComponentContainer {
             int width = this.getWidth();
             int halfWidth = width / 2;
             float distanceRatio = Math.min(1.0F, (float) Math.abs(delta) / (float) width);
-            float distance = (float) halfWidth + (float) halfWidth
+            float distance = halfWidth + halfWidth
                     * this.distanceInfluenceForSnapDuration(distanceRatio);
             velocity = Math.abs(velocity);
             int duration;
             if (velocity > 0) {
-                duration = 4 * Math.round(1000.0F * Math.abs(distance / (float) velocity));
+                duration = 4 * Math.round(1000.0F * Math.abs(distance / velocity));
             } else {
                 float range = (float) Math.abs(delta) / (float) motionRange;
                 duration = (int) ((range + 1.0F) * 256.0F);

@@ -17,6 +17,11 @@
         ohos:id="$+id:anchorsheet_layout"
         ohos:height="match_parent"
         ohos:width="match_parent"
+        peekHeight = "200"
+        anchorThreshold = "0.60"
+        minOffset = "0"
+        canHide = "true"
+        skipCollapsed = "false"
         >
         <DirectionalLayout
             ohos:height="match_parent"
