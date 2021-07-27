@@ -8,21 +8,30 @@ Fine more about it at [the medium blog post](https://medium.com/@marxallski/from
 
 ![](anchorsheetbehavior_demo.gif.gif)
 
-# Integration 
 
-```groovy
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
+## Add AnchorSheetBehavior Dependency
+1. For using AnchorSheetBehavior module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
 ```
-Add AnchorSheetBehavior dependency:
-```groovy
-dependencies {
-    compile 'com.github.skimarxall:AnchorSheetBehavior:master-SNAPSHOT'
-}
+	dependencies {
+		implementation project(':anchorsheetlayout')
+        	implementation fileTree(dir: 'libs', include: ['*.har'])
+        	testCompile 'junit:junit:4.12'
+	}
+```
+2. For using AnchorSheetBehavior in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+```
+	dependencies {
+		implementation fileTree(dir: 'libs', include: ['*.har'])
+		testCompile 'junit:junit:4.12'
+	}
+
+```
+3. For using AnchorSheetBehavior from a remote repository in separate application, add the below dependencies in entry/build.gradle file.
+```
+	dependencies {
+		implementation 'dev.applibgroup:anchorsheetlayout:1.0.0'
+		testCompile 'junit:junit:4.12'
+	}
 ```
 
 # Usage
