@@ -1,6 +1,5 @@
-# AnchorSheetBehavior
-[![](https://jitpack.io/v/skimarxall/AnchorSheetBehavior.svg)](https://jitpack.io/#skimarxall/AnchorSheetBehavior)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_AnchorSheetBehavior&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_AnchorSheetBehavior)
+# AnchorSheetBehavior 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_AnchorSheetBehavior&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_AnchorSheetBehavior) [![Build](https://github.com/applibgroup/AnchorSheetBehavior/actions/workflows/main.yml/badge.svg)](https://github.com/applibgroup/AnchorSheetBehavior/actions/workflows/main.yml)
 
 Modification of the BottomSheetBehavior with Anchor state.
 
