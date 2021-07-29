@@ -30,6 +30,7 @@ import ohos.agp.components.Component;
 import ohos.agp.components.ComponentContainer;
 import ohos.app.Context;
 import ohos.multimodalinput.event.TouchEvent;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * AnchorSheetLayout is a custom layout where it can support only one child. So, for adding multiple
@@ -48,7 +49,7 @@ public class AnchorSheetLayout extends ComponentContainer {
          *                    {@link #STATE_SETTLING}, {@link #STATE_EXPANDED},
          *                    {@link #STATE_COLLAPSED}, or {@link #STATE_HIDDEN}.
          */
-        public abstract void onStateChanged(Component bottomSheet, @State int newState);
+        public abstract void onStateChanged(@NotNull Component bottomSheet, @State int newState);
 
         /**
          * Called when the bottom sheet is being dragged.
@@ -59,7 +60,7 @@ public class AnchorSheetLayout extends ComponentContainer {
          *                    is between collapsed and expanded states and from -1 to 0 it is
          *                    between hidden and collapsed states.
          */
-        public abstract void onSlide(Component bottomSheet, float slideOffset);
+        public abstract void onSlide(@NotNull Component bottomSheet, float slideOffset);
     }
 
     /**
@@ -230,7 +231,7 @@ public class AnchorSheetLayout extends ComponentContainer {
 
         // called whenever dragHelper is trying to capture the view
         @Override
-        public boolean tryCaptureView(Component child, int pointerId) {
+        public boolean tryCaptureView(@NotNull Component child, int pointerId) {
             if (mState == STATE_DRAGGING) {
                 return false;
             }
@@ -239,7 +240,7 @@ public class AnchorSheetLayout extends ComponentContainer {
 
         // called when the position of the view is changed
         @Override
-        public void onViewPositionChanged(Component changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NotNull Component changedView, int left, int top, int dx, int dy) {
             dispatchOnSlide(top);
         }
 
@@ -267,7 +268,7 @@ public class AnchorSheetLayout extends ComponentContainer {
 
         // called when the captured view is released
         @Override
-        public void onViewReleased(Component releasedChild, float xvel, float yvel, float dx, float dy) {
+        public void onViewReleased(@NotNull Component releasedChild, float xvel, float yvel, float dx, float dy) {
             int currentTop = (int) releasedChild.getContentPositionY();
             @State int targetState;
 
@@ -309,19 +310,19 @@ public class AnchorSheetLayout extends ComponentContainer {
 
         // returns the vertical position of the captured view when it's been dragged
         @Override
-        public int clampViewPositionVertical(Component child, int top, int dy) {
+        public int clampViewPositionVertical(@NotNull Component child, int top, int dy) {
             return Math.min(canHide ? mParentHeight : mMaxOffset, Math.max(minOffset, top));
         }
 
         // returns the horizontal position of the captured view when it's been dragged
         @Override
-        public int clampViewPositionHorizontal(Component child, int left, int dx) {
+        public int clampViewPositionHorizontal(@NotNull Component child, int left, int dx) {
             return child.getLeft();
         }
 
         // possible vertical drag
         @Override
-        public int getViewVerticalDragRange(Component child) {
+        public int getViewVerticalDragRange(@NotNull Component child) {
             if (canHide) {
                 return mParentHeight - minOffset;
             } else {

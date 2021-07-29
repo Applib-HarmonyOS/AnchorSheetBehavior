@@ -5,6 +5,7 @@ import ohos.agp.components.Attr;
 import ohos.agp.components.AttrSet;
 import ohos.agp.components.Component;
 import ohos.app.Context;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Optional;
@@ -46,22 +47,22 @@ public class SheetOhosTest {
         anchorSheetLayout = new AnchorSheetLayout(context, attrSet);
         dragHelper = DragHelper.create(anchorSheetLayout, new DragHelper.Callback() {
             @Override
-            public int getViewVerticalDragRange(Component child) {
+            public int getViewVerticalDragRange(@NotNull Component child) {
                 return 0;
             }
 
             @Override
-            public boolean tryCaptureView(Component child, int pointerId) {
+            public boolean tryCaptureView(@NotNull Component child, int pointerId) {
                 return false;
             }
 
             @Override
-            public int clampViewPositionHorizontal(Component child, int left, int dx) {
+            public int clampViewPositionHorizontal(@NotNull Component child, int left, int dx) {
                 return 0;
             }
 
             @Override
-            public int clampViewPositionVertical(Component child, int top, int dy) {
+            public int clampViewPositionVertical(@NotNull Component child, int top, int dy) {
                 return 0;
             }
         });

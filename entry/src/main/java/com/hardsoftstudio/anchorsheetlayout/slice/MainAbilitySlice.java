@@ -28,6 +28,7 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.Text;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * MainAbilitySlice to check AnchorSheetLayout library.
@@ -66,7 +67,7 @@ public class MainAbilitySlice extends AbilitySlice {
 
         anchorSheetLayout.setAnchorSheetCallback(new AnchorSheetLayout.AnchorSheetCallback() {
             @Override
-            public void onStateChanged(Component bottomSheet, @AnchorSheetLayout.State int newState) {
+            public void onStateChanged(@NotNull Component bottomSheet, @AnchorSheetLayout.State int newState) {
                 switch (newState) {
                     case AnchorSheetLayout.STATE_ANCHOR:
                         content.setText("Anchor State");
@@ -92,7 +93,7 @@ public class MainAbilitySlice extends AbilitySlice {
             }
 
             @Override
-            public void onSlide(Component bottomSheet, float slideOffset) {
+            public void onSlide(@NotNull Component bottomSheet, float slideOffset) {
                 // Do nothing
             }
         });
