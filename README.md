@@ -4,7 +4,7 @@
 
 AnchorSheetLayout is a custom layout where it can support only one child. It enables the child component container to slide from bottom to top of the screen by revealing the content. So, for adding multiple components add a single layout as a child and add the remaining components as children to that layout.
 
-![](anchorsheetbehavior_demo.gif.gif)
+![](anchorsheet_demo.gif)
 
 ## Features
 Currently, it supports the following features:
