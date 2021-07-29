@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StackLayout
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    xmlns:app="http://schemas.huawei.com/res/app"
     ohos:id="$+id:main_layout"
     ohos:height="match_parent"
     ohos:width="match_parent"
@@ -17,11 +18,11 @@
         ohos:id="$+id:anchorsheet_layout"
         ohos:height="match_parent"
         ohos:width="match_parent"
-        peekHeight = "200"
-        anchorThreshold = "0.60"
-        minOffset = "0"
-        canHide = "true"
-        skipCollapsed = "false"
+        app:peekHeight = "200"
+        app:anchorThreshold = "0.60"
+        app:minOffset = "0"
+        app:canHide = "true"
+        app:skipCollapsed = "false"
         >
         <DirectionalLayout
             ohos:height="match_parent"
