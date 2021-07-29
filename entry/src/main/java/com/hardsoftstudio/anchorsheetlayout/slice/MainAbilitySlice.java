@@ -17,7 +17,6 @@
 package com.hardsoftstudio.anchorsheetlayout.slice;
 
 import com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout;
-import com.hardsoftstudio.anchorsheetlayout.NonNull;
 import com.hardsoftstudio.anchorsheetlayout.ResourceTable;
 import com.hardsoftstudio.anchorsheetlayout.SampleItem;
 import com.hardsoftstudio.anchorsheetlayout.SampleItemProvider;
@@ -67,7 +66,7 @@ public class MainAbilitySlice extends AbilitySlice {
 
         anchorSheetLayout.setAnchorSheetCallback(new AnchorSheetLayout.AnchorSheetCallback() {
             @Override
-            public void onStateChanged(@NonNull Component bottomSheet, @AnchorSheetLayout.State int newState) {
+            public void onStateChanged(Component bottomSheet, @AnchorSheetLayout.State int newState) {
                 switch (newState) {
                     case AnchorSheetLayout.STATE_ANCHOR:
                         content.setText("Anchor State");
@@ -93,7 +92,7 @@ public class MainAbilitySlice extends AbilitySlice {
             }
 
             @Override
-            public void onSlide(@NonNull Component bottomSheet, float slideOffset) {
+            public void onSlide(Component bottomSheet, float slideOffset) {
                 // Do nothing
             }
         });
