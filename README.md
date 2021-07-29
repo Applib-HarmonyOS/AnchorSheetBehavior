@@ -104,13 +104,13 @@ We can set the call back to the sheet by the following code. Below onStateChange
 anchorSheetLayout.setAnchorSheetCallback(new AnchorSheetLayout.AnchorSheetCallback() {
    
    @Override
-   public void onStateChanged(@NonNull Component bottomSheet, @AnchorSheetLayout.State int newState) {
+   public void onStateChanged(Component bottomSheet, @AnchorSheetLayout.State int newState) {
        // some code
        }
    }
 
    @Override
-   public void onSlide(@NonNull Component bottomSheet, float slideOffset) {
+   public void onSlide(Component bottomSheet, float slideOffset) {
        // some code
    }
 });
