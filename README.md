@@ -2,12 +2,22 @@
 [![](https://jitpack.io/v/skimarxall/AnchorSheetBehavior.svg)](https://jitpack.io/#skimarxall/AnchorSheetBehavior)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_AnchorSheetBehavior&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_AnchorSheetBehavior)
 
-Modification of the BottomSheetBehavior with Anchor state.
-
-Fine more about it at [the medium blog post](https://medium.com/@marxallski/from-bottomsheetbehavior-to-anchorsheetbehavior-262ad7997286#.m02n38t27).
+AnchorSheetLayout is a custom layout where it can support only one child. It enables the child component container to slide from bottom to top of the screen by revealing the content. So, for adding multiple components add a single layout as a child and add the remaining components as children to that layout.
 
 ![](anchorsheetbehavior_demo.gif.gif)
 
+## Features
+Currently, it supports the following features:
+* Drag the sheet from bottom to top of the screen.
+* Settles in the appropriate position when a fling is delivered to the sheet.
+* Provides a call back to the state of the sheet.
+* Allows adding unlimited components in the child layout (sheet).
+* Able to configure all the possible positions on the screen.
+* Able to hide the sheet completely.
+
+## Source
+The code in this repository was inspired from [marcelpinto/AnchorSheetBehavior - v1.1](https://github.com/marcelpinto/AnchorSheetBehavior). 
+We are very thankful to Mr. Marcelpinto.
 
 ## Add AnchorSheetBehavior Dependency
 1. For using AnchorSheetBehavior module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
@@ -34,27 +44,77 @@ Fine more about it at [the medium blog post](https://medium.com/@marxallski/from
 	}
 ```
 
-# Usage
+## Possible states
+AnchorSheetLayout has seven different states where five of them are static states and the remaining are dynamic states (states occur when the sheet is moving).
+|States|Description|
+|:-------------:|:-------------:|
+|STATE_EXPANDED|Maximum content on the sheet is shown|
+|STATE_HIDDEN|Sheet is not visible|
+|STATE_COLLAPSED|Small portion of the sheet is shown|
+|STATE_ANCHOR|State between expanded and collapsed|
+|STATE_DRAGGING|Sheet is being dragged|
+|STATE_SETTLING|Sheet trying to settle in the appropriate position maybe after a fling|
+|STATE_FORCE_HIDDEN|Sheet is forced to be hidden irrespective of canHide attribute|
 
-The behavior is an extension of the Android support design, thus the usage is the same.
-The only addition is two extra states:
-* STATE_ANCHOR: push the bottom sheet to an anchor state defined by Anchor offset
-* STATE_FORCE_HIDE: force the bottom sheet to hide regardless of hideable flag
+## Attribute meaning
+AnchorSheetLayout supports a high degree of customization, and its adjustable attributes and meanings are shown in the table below.
 
-``` java
-/**
-* Set the offset for the anchor state. Number between 0..1
-* i.e: Anchor the panel at 1/3 of the screen: setAnchorOffset(0.25)
-*
-* @param threshold {@link Float} from 0..1
-*/
-public void setAnchorOffset(float threshold) {
-    this.mAnchorThreshold = threshold;
-    this.mAnchorOffset = (int) Math.max(mParentHeight * mAnchorThreshold, mMinOffset);
-}
+|Attributes  | meaning |
+|:-------------:|:-------------:|
+|peekHeight|Height of the sheet when in collapsed state|
+|minOffset|Distance between Layout Top and Child Top in Hidden State|
+|canHide|Says whether Anchor Sheet can go to Hidden State|
+|skipCollapsed|Whether to avoid Collapse State when Sheet is moving down|
+|anchorThreshold|Fraction which decides the height of the Sheet in Anchor State|
+
+
+## Using AnchorSheetLayout Library
+The GitHub project source includes a sample application, that is used for demonstrating the various features currently supported by this library. Once the library is added to your project, you can include the AnchorSheetLayout into your Slice layout using the following code snippets.
+Below DirectionalLayout is added as child.
+```xml
+<com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout
+   xmlns:ohos="http://schemas.huawei.com/res/ohos"
+   ohos:id="$+id:anchorsheet_layout"
+   ohos:height="match_parent"
+   ohos:width="match_parent"
+   app:peekHeight = "200"
+   app:anchorThreshold = "0.60"
+   app:minOffset = "0"
+   app:canHide = "true"
+   app:skipCollapsed = "false"
+   >
+   <DirectionalLayout
+       ohos:height="match_parent"
+       ohos:width="match_parent"
+       ohos:orientation="vertical"
+       ohos:background_element="$ohos:color:id_color_alert_dark"
+       >
+   </DirectionalLayout>
+</com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout>
 ```
+We can set the attributes of the sheet by following java code.
+```java
+anchorSheetLayout = (AnchorSheetLayout) findComponentById(ResourceTable.Id_anchorsheet_layout);
+anchorSheetLayout.setState(AnchorSheetLayout.STATE_COLLAPSED);
+anchorSheetLayout.setCanHide(true);
+```
+We can set the call back to the sheet by the following code. Below onStateChanged method is called whenever the state of the sheet change and onSlide method gives the slide amount.
 
-For more usage see [Android docs](https://developer.android.com/reference/android/support/design/widget/BottomSheetBehavior.html)
+```java
+anchorSheetLayout.setAnchorSheetCallback(new AnchorSheetLayout.AnchorSheetCallback() {
+   
+   @Override
+   public void onStateChanged(@NonNull Component bottomSheet, @AnchorSheetLayout.State int newState) {
+       // some code
+       }
+   }
+
+   @Override
+   public void onSlide(@NonNull Component bottomSheet, float slideOffset) {
+       // some code
+   }
+});
+```
 
 License
 =======
@@ -72,4 +132,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
