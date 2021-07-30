@@ -18,4 +18,5 @@ ohos {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.har'])
     testImplementation 'junit:junit:4.13'
+    implementation 'org.jetbrains:annotations:16.0.2'
 }

@@ -6,6 +6,8 @@ import ohos.agp.components.ComponentContainer;
 import ohos.agp.components.VelocityDetector;
 import ohos.multimodalinput.event.ManipulationEvent;
 import ohos.multimodalinput.event.TouchEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * DragHelper is a utility class for writing AnchorSheetLayout. It helps in
@@ -52,7 +54,7 @@ public class DragHelper {
      * @param cb Callback to provide information and receive events
      * @return a new ViewDragHelper instance
      */
-    public static DragHelper create(@NonNull ComponentContainer forParent, @NonNull DragHelper.Callback cb) {
+    public static DragHelper create(@NotNull ComponentContainer forParent, @NotNull DragHelper.Callback cb) {
         return new DragHelper(forParent, cb);
     }
 
@@ -61,17 +63,11 @@ public class DragHelper {
      *
      * @param forParent Parent view to monitor
      */
-    private DragHelper(@NonNull ComponentContainer forParent, @NonNull DragHelper.Callback cb) {
-        if (forParent == null) {
-            throw new IllegalArgumentException("Parent view may not be null");
-        } else if (cb == null) {
-            throw new IllegalArgumentException("Callback may not be null");
-        } else {
-            this.mParentView = forParent;
-            this.mCallback = cb;
-            this.mMaxVelocity = DEFAULT_MAX_VELOCITY;
-            this.mMinVelocity = DEFAULT_MIN_VELOCITY;
-        }
+    private DragHelper(@NotNull ComponentContainer forParent, @NotNull DragHelper.Callback cb) {
+        this.mParentView = forParent;
+        this.mCallback = cb;
+        this.mMaxVelocity = DEFAULT_MAX_VELOCITY;
+        this.mMinVelocity = DEFAULT_MIN_VELOCITY;
     }
 
     /**
@@ -109,7 +105,7 @@ public class DragHelper {
      *
      * @param childView Child view to capture
      */
-    public void captureChildView(@NonNull Component childView) {
+    public void captureChildView(@NotNull Component childView) {
         if (childView.getComponentParent() != this.mParentView) {
             throw new IllegalArgumentException("captureChildView: parameter must"
                     + " be a descendant of the ViewDragHelper's tracked parent view (" + this.mParentView + ")");
@@ -268,7 +264,7 @@ public class DragHelper {
      *
      * @param ev The touch event received by the parent view.
      */
-    public void processTouchEvent(@NonNull TouchEvent ev) {
+    public void processTouchEvent(@NotNull TouchEvent ev) {
         int action = ev.getAction();
         final int actionIndex = ev.getIndex();
         if (action == TouchEvent.PRIMARY_POINT_DOWN) {
@@ -407,7 +403,7 @@ public class DragHelper {
          * @param dx Change in X position from the last call
          * @param dy Change in Y position from the last call
          */
-        public void onViewPositionChanged(@NonNull Component changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NotNull Component changedView, int left, int top, int dx, int dy) {
         }
 
         /**
@@ -421,7 +417,7 @@ public class DragHelper {
          * @param dx Recent X offset of the pointer
          * @param dy Recent Y offset of the pointer
          */
-        public void onViewReleased(@NonNull Component releasedChild, float xvel, float yvel, float dx, float dy) {
+        public void onViewReleased(@NotNull Component releasedChild, float xvel, float yvel, float dx, float dy) {
         }
 
         /**
@@ -441,7 +437,7 @@ public class DragHelper {
          * @param child Child view to check
          * @return range of vertical motion in pixels
          */
-        public abstract int getViewVerticalDragRange(@NonNull Component child);
+        public abstract int getViewVerticalDragRange(@NotNull Component child);
 
         /**
          * Called when the user's input indicates that they want to capture the given child view
@@ -452,7 +448,7 @@ public class DragHelper {
          * @param pointerId ID of the pointer attempting the capture
          * @return true if capture should be allowed, false otherwise
          */
-        public abstract boolean tryCaptureView(@NonNull Component child, int pointerId);
+        public abstract boolean tryCaptureView(@NotNull Component child, int pointerId);
 
         /**
          * Restrict the motion of the dragged child view along the horizontal axis.
@@ -465,7 +461,7 @@ public class DragHelper {
          * @param dx Proposed change in position for left
          * @return The new clamped position for left
          */
-        public abstract int clampViewPositionHorizontal(@NonNull Component child, int left, int dx);
+        public abstract int clampViewPositionHorizontal(@NotNull Component child, int left, int dx);
 
         /**
          * Restrict the motion of the dragged child view along the vertical axis.
@@ -478,7 +474,7 @@ public class DragHelper {
          * @param dy Proposed change in position for top
          * @return The new clamped position for top
          */
-        public abstract int clampViewPositionVertical(@NonNull Component child, int top, int dy);
+        public abstract int clampViewPositionVertical(@NotNull Component child, int top, int dy);
     }
 
     /**
