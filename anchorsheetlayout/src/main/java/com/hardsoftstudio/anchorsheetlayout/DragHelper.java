@@ -1,6 +1,5 @@
 package com.hardsoftstudio.anchorsheetlayout;
 
-import java.util.Arrays;
 import ohos.agp.components.Component;
 import ohos.agp.components.ComponentContainer;
 import ohos.agp.components.VelocityDetector;
@@ -8,6 +7,7 @@ import ohos.multimodalinput.event.ManipulationEvent;
 import ohos.multimodalinput.event.TouchEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.Arrays;
 
 /**
  * DragHelper is a utility class for writing AnchorSheetLayout. It helps in

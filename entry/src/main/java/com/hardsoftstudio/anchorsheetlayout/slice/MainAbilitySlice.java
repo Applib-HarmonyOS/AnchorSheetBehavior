@@ -16,19 +16,19 @@
 
 package com.hardsoftstudio.anchorsheetlayout.slice;
 
-import com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout;
-import com.hardsoftstudio.anchorsheetlayout.ResourceTable;
-import com.hardsoftstudio.anchorsheetlayout.SampleItem;
-import com.hardsoftstudio.anchorsheetlayout.SampleItemProvider;
-import java.util.ArrayList;
-import java.util.List;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.Text;
+import com.hardsoftstudio.anchorsheetlayout.AnchorSheetLayout;
+import com.hardsoftstudio.anchorsheetlayout.ResourceTable;
+import com.hardsoftstudio.anchorsheetlayout.SampleItem;
+import com.hardsoftstudio.anchorsheetlayout.SampleItemProvider;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MainAbilitySlice to check AnchorSheetLayout library.

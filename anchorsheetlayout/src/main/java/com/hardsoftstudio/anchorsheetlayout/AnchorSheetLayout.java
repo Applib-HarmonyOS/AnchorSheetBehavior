@@ -16,12 +16,6 @@
 
 package com.hardsoftstudio.anchorsheetlayout;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import ohos.agp.animation.Animator;
 import ohos.agp.animation.AnimatorValue;
 import ohos.agp.components.Attr;
@@ -31,6 +25,12 @@ import ohos.agp.components.ComponentContainer;
 import ohos.app.Context;
 import ohos.multimodalinput.event.TouchEvent;
 import org.jetbrains.annotations.NotNull;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * AnchorSheetLayout is a custom layout where it can support only one child. So, for adding multiple
