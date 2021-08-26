@@ -16,13 +16,13 @@
 
 package com.hardsoftstudio.anchorsheetlayout;
 
-import java.util.List;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.BaseItemProvider;
 import ohos.agp.components.Component;
 import ohos.agp.components.ComponentContainer;
 import ohos.agp.components.LayoutScatter;
 import ohos.agp.components.Text;
+import java.util.List;
 
 /**
  * ItemProvider for listContainer.

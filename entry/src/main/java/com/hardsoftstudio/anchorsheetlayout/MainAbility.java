@@ -16,9 +16,9 @@
 
 package com.hardsoftstudio.anchorsheetlayout;
 
-import com.hardsoftstudio.anchorsheetlayout.slice.MainAbilitySlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.content.Intent;
+import com.hardsoftstudio.anchorsheetlayout.slice.MainAbilitySlice;
 
 /**
  * MainAbility Class for testing AnchorSheetLayout Library.
